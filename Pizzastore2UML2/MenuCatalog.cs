@@ -17,13 +17,9 @@ namespace Pizzastore2UML2
             pizzas.Add(pizza.Number, pizza);
         }
 
-        public void UpatePizza(Pizza pizza)
+        public void UpdatePizza(Pizza pizza)
         {
-            int numbertoupdate = 1;
-            if (pizzas.ContainsKey(numbertoupdate))
-            {
-                pizzas[numbertoupdate] = new Pizza();
-            }
+            pizzas[pizza.Number] = pizza;
         }
         public void DeletePizza(int NumberToRemove)
         {

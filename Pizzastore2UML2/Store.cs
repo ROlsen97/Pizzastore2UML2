@@ -21,9 +21,39 @@ namespace Pizzastore2UML2
             mc1.CreatePizza(p3);
             mc1.CreatePizza(p4);
             mc1.CreatePizza(p5);
-
             
+            Pizza UpdateNewPizza()
+            {
+                Pizza Updatedpizzaitem = new Pizza();
+                Console.Clear();
+                Console.WriteLine("--------------");
+                Console.WriteLine("Updating pizza");
+                Console.WriteLine("--------------");
+                Console.WriteLine();
+                
+                Console.WriteLine("Enter the number of the pizza you want to update");
+                    
+                int Updatedinputnumber = int.Parse(Console.ReadLine());
+                Updatedpizzaitem.Number = Updatedinputnumber;
+                
+                Console.WriteLine("Enter new name : ");
+                Updatedpizzaitem.Name = Console.ReadLine();
 
+                string Updatedinputprice = "";
+                Console.WriteLine("Enter updated price: ");
+                try
+                {
+                    Updatedinputprice = Console.ReadLine();
+                    Updatedpizzaitem.Price = Int32.Parse(Updatedinputprice);
+                }
+                catch (FormatException er)
+                {
+                    Console.WriteLine($"unable to parse {Updatedinputprice} - Message {er.Message}");
+                    throw;
+                }
+                mc1.UpdatePizza(Updatedpizzaitem);
+                return Updatedpizzaitem;
+            }
             Pizza GetNewPizza()
             {
                 Pizza pizzaitem = new Pizza();
@@ -124,7 +154,8 @@ namespace Pizzastore2UML2
                         }
                         catch (Exception)
                         {
-                            Console.WriteLine($"No pizza was created");
+                            Console.WriteLine($"Can't create a pizza that overwrites other pizzas - try to update a pizza instead");
+                            Console.ReadKey();
                             break;
                         }
                     case 2:
@@ -138,11 +169,12 @@ namespace Pizzastore2UML2
  
                         Console.WriteLine($"You selected option 3. to search for a pizza");
                         Console.WriteLine($"Select the pizza number you want to search for");
-                        int ChosenNumber = int.Parse(Console.ReadLine());
 
                         try
                         {
-                            Console.WriteLine($"the input you gave was {ChosenNumber}, the pizza you searched for was: {mc1.ReadPizza(ChosenNumber)}");
+                            int ChosenNumber = int.Parse(Console.ReadLine());
+                            Console.WriteLine($"the input you gave was {ChosenNumber}");
+                            Console.WriteLine($"the pizza you searched for was: {mc1.ReadPizza(ChosenNumber)}");
                         }
                         catch (Exception ex)
                         {
@@ -156,12 +188,13 @@ namespace Pizzastore2UML2
                     case 4:
                         Console.WriteLine($"The selected option 4 to Delete a pizza");
                         Console.WriteLine($"Select the number for the pizza you want to delete");
-                        int ChosenNumberC4 = int.Parse(Console.ReadLine());
                         try
                         {
+                            int ChosenNumberC4 = int.Parse(Console.ReadLine());
                             Console.WriteLine($"You chose to delete pizza number {ChosenNumberC4}, pizza has been removed)");
                             mc1.DeletePizza(ChosenNumberC4);
                         }
+                        
                         catch(Exception c4)
                         {
                             Console.Write(c4.Message);
@@ -171,14 +204,25 @@ namespace Pizzastore2UML2
                         Console.Write($"Hit any key to move to start menu");
                         Console.ReadKey();
                         break;
-
-                        
-
-
-
-
+                    case 5:
+                        Console.WriteLine($"You've selected option 5 to update a pizza");
+                        Console.WriteLine($"Chose the number of the pizza you want to update");
+                        try
+                        {
+                            Pizza ee = UpdateNewPizza();
+                            
+                            Console.WriteLine($"{ee}");
+                            Console.WriteLine("hit any key to return to start menu");
+                            Console.ReadKey();
+                            break;
+                        }
+                        catch(Exception)
+                        {
+                            Console.WriteLine("no pizza was updated");
+                        }
+                        Console.ReadKey();
+                        break;
                 }
-
             }
         }
     }
